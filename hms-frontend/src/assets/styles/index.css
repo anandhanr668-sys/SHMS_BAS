@@ -1,0 +1,138 @@
+/* App Shell Layout */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header */
+.app-header {
+  height: 60px;
+  background-color: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logout-btn {
+  margin-left: 12px;
+  padding: 6px 12px;
+  background-color: #ef4444;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Body */
+.app-body {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: 220px;
+  background-color: #1e293b;
+  color: white;
+  padding: 20px;
+}
+
+.app-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.app-sidebar li {
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* Main Content */
+.app-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8fafc;
+  overflow-y: auto;
+}
+
+/* Footer */
+.app-footer {
+  height: 40px;
+  background-color: #e5e7eb;
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+}
+/* Header */
+.header {
+  height: 60px;
+  background: #0f172a;
+  color: white;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+}
+.sidebar li {
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  height: 40px;
+  background: #e5e7eb;
+  text-align: center;
+  line-height: 40px;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+.modal {
+  background: white;
+  width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+}
+
+/* Loader */
+.loader {
+  text-align: center;
+}
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  color: white;
+  border-radius: 4px;
+}
+.toast-success { background: #16a34a; }
+.toast-error { background: #dc2626; }
