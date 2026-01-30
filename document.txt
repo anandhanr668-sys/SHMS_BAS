@@ -1461,8 +1461,340 @@ hms-backend/
 
 
 
+===================================================================================================================================================================
+                                                                            Newly integrated project STRUCTURE
+ 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+															    VS CODING INSIDE OF IN FRONTEND -- optional== loader.css 
+hms-frontend/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   └── images/
+│       └── hospital-bg.jpg
+│
+├── src/
+│
+│   ├── assets/
+│   │   ├── icons/
+│   │   └── images/
+│
+│   ├── core/                              ⭐ FRAMEWORK CORE (SYSTEM LEVEL)
+│   │   ├── AppShell.jsx                   # Header + Sidebar + Footer layout
+│   │   ├── ErrorBoundary.jsx
+│   │   ├── ThemeProvider.jsx
+│   │   ├── PermissionGate.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   └── TenantResolver.jsx             # Multi-hospital switch
+│
+│   ├── components/
+│   │   └── common/                        # SHARED UI COMPONENTS
+│   │       ├── Header.jsx
+│   │       ├── Sidebar.jsx
+│   │       ├── Footer.jsx
+│   │       ├── Modal.jsx
+│   │       ├── Loader.jsx
+│   │       └── Toast.jsx
+│
+│   ├── lcnc/                              ⭐ LOW-CODE / NO-CODE ENGINES
+│   │
+│   │   ├── form-engine/
+│   │   │   ├── builder/                   # Admin Form Builder
+│   │   │   │   ├── FormBuilder.jsx
+│   │   │   │   ├── FieldPalette.jsx
+│   │   │   │   ├── FieldProperties.jsx
+│   │   │   │   ├── DragCanvas.jsx
+│   │   │   │   └── FieldPreview.jsx
+│   │   │   ├── runtime/                   # Runtime Form Rendering
+│   │   │   │   ├── FormRenderer.jsx
+│   │   │   │   ├── DynamicField.jsx
+│   │   │   │   └── ValidationRunner.js
+│   │   │   └── fields/
+│   │   │       ├── TextField.jsx
+│   │   │       ├── NumberField.jsx
+│   │   │       ├── DateField.jsx
+│   │   │       ├── DropdownField.jsx
+│   │   │       ├── CheckboxField.jsx
+│   │   │       ├── FileUpload.jsx
+│   │   │       └── CompositeField.jsx
+│   │
+│   │   ├── rules-engine/
+│   │   │   ├── RulesBuilder.jsx
+│   │   │   ├── RuleCanvas.jsx
+│   │   │   ├── ConditionEditor.jsx
+│   │   │   ├── ActionEditor.jsx
+│   │   │   ├── RulePreview.jsx
+│   │   │   ├── RuleSimulator.jsx          ⭐ DEMO GOLD
+│   │   │   └── RuleExecutor.js
+│   │
+│   │   ├── report-engine/
+│   │   │   ├── ReportDesigner.jsx
+│   │   │   ├── ReportCanvas.jsx
+│   │   │   ├── LayoutCanvas.jsx
+│   │   │   ├── PlaceholderPicker.jsx
+│   │   │   ├── DataSourceBinder.jsx
+│   │   │   └── ReportRenderer.jsx
+│   │
+│   │   └── workflow-engine/               ⭐ BONUS (VERY IMPRESSIVE)
+│   │       ├── WorkflowDesigner.jsx
+│   │       ├── StateMachine.jsx
+│   │       └── WorkflowPreview.jsx
+│
+│   ├── dashboards/                        ⭐ ROLE-BASED SCREENS (THIN UI)
+│   │
+│   │   ├── admin/
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── FormBuilderPage.jsx
+│   │   │   ├── RulesBuilderPage.jsx
+│   │   │   ├── ReportDesignerPage.jsx
+│   │   │   ├── MasterData.jsx
+│   │   │   ├── WardBedManagement.jsx
+│   │   │   ├── StaffManagement.jsx
+│   │   │   ├── AuditLogs.jsx
+│   │   │   └── Analytics.jsx
+│   │
+│   │   ├── frontdesk/
+│   │   │   ├── FrontDeskDashboard.jsx
+│   │   │   ├── PatientRegistration.jsx
+│   │   │   └── AppointmentScheduling.jsx
+│   │
+│   │   ├── nurse/
+│   │   │   ├── NurseDashboard.jsx
+│   │   │   ├── AssignedPatients.jsx
+│   │   │   ├── VitalsCapture.jsx
+│   │   │   └── BedStatus.jsx
+│   │
+│   │   ├── doctor/
+│   │   │   ├── DoctorDashboard.jsx
+│   │   │   ├── PatientList.jsx
+│   │   │   ├── Consultation.jsx
+│   │   │   ├── Prescriptions.jsx
+│   │   │   └── Discharge.jsx
+│   │
+│   │   └── patient/
+│   │       ├── PatientPortal.jsx
+│   │       ├── VisitHistory.jsx
+│   │       ├── Reports.jsx
+│   │       ├── Prescriptions.jsx
+│   │       └── Appointments.jsx
+│
+│   ├── realtime/
+│   │   ├── socketClient.js
+│   │   ├── bedLiveUpdates.js
+│   │   └── notificationStream.js
+│
+│   ├── pages/                            ⭐ ENTRY / AUTH PAGES
+│   │   ├── Login.jsx
+│   │   ├── Unauthorized.jsx
+│   │   └── NotFound.jsx
+│
+│   ├── routes/
+│   │   └── AppRoutes.jsx
+│
+│   ├── services/                         ⭐ API COMMUNICATION
+│   │   ├── apiClient.js
+│   │   ├── authService.js
+│   │   ├── tenantService.js
+│   │   ├── formService.js
+│   │   ├── ruleService.js
+│   │   ├── reportService.js
+│   │   ├── patientService.js
+│   │   ├── auditService.js
+│   │   └── analyticsService.js
+│
+│   ├── store/                            ⭐ GLOBAL STATE (ZUSTAND / REDUX)
+│   │   ├── authStore.js
+│   │   ├── tenantStore.js
+│   │   ├── formStore.js
+│   │   ├── ruleStore.js
+│   │   ├── patientStore.js
+│   │   ├── realtimeStore.js
+│   │   └── uiStore.js
+│
+│   ├── styles/
+│   │   ├── global.css
+│   │   ├── loader.css                    # OPTIONAL
+│   │   ├── login.css
+│   │   ├── dashboard.css
+│   │   ├── formBuilder.css
+│   │   ├── rulesBuilder.css
+│   │   └── reportDesigner.css
+│
+│   ├── utils/
+│   │   ├── constants.js
+│   │   ├── roleMapper.js
+│   │   ├── permissionCheck.js
+│   │   ├── validators.js
+│   │   ├── ruleEvaluator.js
+│   │   ├── schemaValidator.js
+│   │   └── helpers.js
+│
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── package.json
+├── vite.config.js
+└── README.md give me the output image of this project with all  interfaces                                                                                                          
 
-================================================================================================
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+															                VS CODING INSIDE OF IN BACKEND 
+hms-backend/
+├── src/
+│
+│   ├── app.js                          # Express app bootstrap
+│   ├── server.js                       # Server entry point
+│
+│   ├── config/                         # CONFIGURATION
+│   │   ├── db.js                       # Database connection
+│   │   ├── env.js                      # Environment variables
+│   │   ├── logger.js                   # Winston / Pino logger
+│   │   └── tenant.config.js            # Multi-hospital config
+│
+│   ├── core/                           ⭐ PLATFORM CORE (SYSTEM LEVEL)
+│   │
+│   │   ├── tenant/                     # MULTI-TENANCY
+│   │   │   ├── tenant.model.js
+│   │   │   ├── tenant.resolver.js
+│   │   │   └── tenant.middleware.js
+│   │
+│   │   ├── rbac/                       # ROLE BASED ACCESS
+│   │   │   ├── role.model.js
+│   │   │   ├── permission.model.js
+│   │   │   ├── access.guard.js
+│   │   │   └── role.middleware.js
+│   │
+│   │   └── versioning/                 # API VERSION CONTROL
+│   │       ├── version.model.js
+│   │       └── version.service.js
+│
+│   ├── modules/                        ⭐ BUSINESS DOMAINS
+│
+│   │   ├── auth/                       # AUTHENTICATION
+│   │   │   ├── auth.controller.js
+│   │   │   ├── auth.service.js
+│   │   │   ├── auth.routes.js
+│   │   │   └── auth.middleware.js
+│
+│   │   ├── users/                      # STAFF + PATIENT USERS
+│   │   │   ├── user.model.js
+│   │   │   ├── user.service.js
+│   │   │   ├── user.controller.js
+│   │   │   └── user.routes.js
+│
+│   │   ├── patients/                   # PATIENT MASTER
+│   │   │   ├── patient.model.js
+│   │   │   ├── patient.service.js
+│   │   │   ├── patient.controller.js
+│   │   │   └── patient.routes.js
+│
+│   │   ├── visits/                     # VISITS + CLINICAL FLOW
+│   │   │   ├── visit.model.js
+│   │   │   ├── visit.service.js
+│   │   │   ├── visit.controller.js
+│   │   │   └── visit.routes.js
+│
+│   │   ├── wards-beds/                 # BED & WARD MANAGEMENT
+│   │   │   ├── ward.model.js
+│   │   │   ├── ward.service.js
+│   │   │   ├── ward.controller.js
+│   │   │   └── ward.routes.js
+│
+│   │   ├── staff/                      # DOCTORS / NURSES
+│   │   │   ├── staff.model.js
+│   │   │   ├── staff.service.js
+│   │   │   ├── staff.controller.js
+│   │   │   └── staff.routes.js
+│
+│   │   ├── insurance/                  # INSURANCE TRACKING
+│   │   │   ├── insurance.model.js
+│   │   │   ├── insurance.service.js
+│   │   │   ├── insurance.controller.js
+│   │   │   └── insurance.routes.js
+│
+│   │   ├── billing/                    # BILLING & PAYMENTS
+│   │   │   ├── billing.model.js
+│   │   │   ├── billing.service.js
+│   │   │   ├── billing.controller.js
+│   │   │   └── billing.routes.js
+│
+│   │   ├── pharmacy/                   # PHARMACY MODULE
+│   │   │   ├── pharmacy.model.js
+│   │   │   ├── pharmacy.service.js
+│   │   │   ├── pharmacy.controller.js
+│   │   │   └── pharmacy.routes.js
+│
+│   │   ├── master-data/                # DROPDOWNS & CONFIG
+│   │   │   ├── master.model.js
+│   │   │   ├── master.service.js
+│   │   │   ├── master.controller.js
+│   │   │   └── master.routes.js
+│
+│   ├── lcnc/                           ⭐ LOW-CODE / NO-CODE BACKEND
+│
+│   │   ├── form-engine/
+│   │   │   ├── form.model.js
+│   │   │   ├── form.service.js
+│   │   │   ├── form.controller.js
+│   │   │   ├── form.validator.js
+│   │   │   └── form.routes.js
+│
+│   │   ├── rules-engine/
+│   │   │   ├── rule.model.js
+│   │   │   ├── rule.executor.js
+│   │   │   ├── rule.simulator.js
+│   │   │   └── rule.routes.js
+│
+│   │   ├── report-engine/
+│   │   │   ├── report.model.js
+│   │   │   ├── report.generator.js
+│   │   │   └── report.routes.js
+│
+│   │   └── workflow-engine/
+│   │       ├── workflow.model.js
+│   │       ├── workflow.executor.js
+│   │       └── workflow.routes.js
+│
+│   ├── realtime/                       ⭐ REAL-TIME SYSTEM
+│   │   ├── socket.js
+│   │   ├── bed.events.js
+│   │   └── notification.events.js
+│
+│   ├── audit/                          ⭐ AUDIT & LOGGING
+│   │   ├── audit.model.js
+│   │   ├── audit.logger.js
+│   │   └── audit.routes.js
+│
+│   ├── analytics/                      ⭐ DASHBOARD METRICS
+│   │   ├── analytics.service.js
+│   │   ├── analytics.controller.js
+│   │   └── analytics.routes.js
+│
+│   ├── middlewares/                    # GLOBAL MIDDLEWARES
+│   │   ├── auth.middleware.js
+│   │   ├── tenant.middleware.js
+│   │   ├── error.middleware.js
+│   │   └── requestLogger.middleware.js
+│
+│   ├── utils/                          # SHARED HELPERS
+│   │   ├── jwt.js
+│   │   ├── response.js
+│   │   ├── ruleParser.js
+│   │   ├── validators.js
+│   │   └── constants.js
+│
+│   ├── routes.js                       # CENTRAL ROUTE REGISTRY
+│   └── socket.index.js                 # SOCKET ENTRY
+│
+├── migrations/                         # DATABASE MIGRATIONS
+├── seeders/                            # SAMPLE DATA
+├── tests/                              # API TESTS
+├── docker-compose.yml
+├── .env
+├── package.json
+└── README.md
+===================================================================================================================================================================
 
 
 "{
