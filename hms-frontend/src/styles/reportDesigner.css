@@ -1,0 +1,22 @@
+.report-designer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.layout-canvas,
+.placeholder-picker,
+.data-source-binder,
+.report-canvas {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.report-renderer {
+  grid-column: span 3;
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 4px;
+}

@@ -1,0 +1,16 @@
+.rules-builder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.rule-canvas,
+.condition-editor,
+.action-editor,
+.rule-preview,
+.rule-simulator {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  border-radius: 4px;
+}

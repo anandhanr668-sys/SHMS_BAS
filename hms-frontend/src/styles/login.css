@@ -1,0 +1,17 @@
+.login-page {
+  max-width: 360px;
+  margin: 100px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-page input {
+  margin-bottom: 12px;
+}
+
+.login-page button {
+  width: 100%;
+}

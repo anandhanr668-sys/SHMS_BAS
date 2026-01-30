@@ -1,0 +1,22 @@
+.form-builder {
+  display: grid;
+  grid-template-columns: 200px 1fr 260px 300px;
+  gap: 12px;
+}
+
+.palette,
+.canvas,
+.properties,
+.preview {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.canvas-item {
+  padding: 6px;
+  border: 1px dashed #94a3b8;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
