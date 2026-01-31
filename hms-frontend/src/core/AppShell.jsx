@@ -1,18 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-
-/**
- * AppShell
- * ---------------------------------------------------
- * Global application layout
- * Used for all authenticated pages
- *
- * Structure:
- *  - Header (top)
- *  - Sidebar (left)
- *  - Main Content (center)
- *  - Footer (bottom)
- */
+import { NavLink } from "react-router-dom";
 
 const AppShell = () => {
   return (
@@ -29,29 +17,36 @@ const AppShell = () => {
         </div>
       </header>
 
-      {/* Body Section */}
+      {/* Body */}
       <div className="app-body">
-        {/* Sidebar */}
         <aside className="app-sidebar">
-          <nav>
-            <ul>
-              <li>Dashboard</li>
-              <li>Patients</li>
-              <li>Appointments</li>
-              <li>Reports</li>
-              <li>Settings</li>
-            </ul>
-          </nav>
-        </aside>
+  <nav>
+    <ul>
+      <li>
+        <NavLink to="/admin">Dashboard</NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/patients">Patients</NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/appointments">Appointments</NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/reports">Reports</NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/settings">Settings</NavLink>
+      </li>
+    </ul>
+  </nav>
+</aside>
 
-        {/* Main Content */}
+
         <main className="app-content">
-          {/* Routed pages will render here */}
           <Outlet />
         </main>
       </div>
 
-      {/* Footer */}
       <footer className="app-footer">
         © {new Date().getFullYear()} LCNC Hospital Management System
       </footer>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/Login";
@@ -25,21 +25,22 @@ import DoctorDashboard from "../dashboards/doctor/DoctorDashboard";
 
 // Patient
 import PatientPortal from "../dashboards/patient/PatientPortal";
+import PatientsPage from "../dashboards/admin/PatientsPage";
+import AppointmentsPage from "../dashboards/admin/AppointmentsPage";
+import SettingsPage from "../dashboards/admin/SettingsPage";
 
 const isAuthenticated = () =>
   localStorage.getItem("auth") === "true";
-
-const getRole = () =>
-  localStorage.getItem("role");
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+
         {/* Public */}
         <Route path="/login" element={<Login />} />
 
-        {/* Protected */}
+        {/* Protected layout */}
         <Route
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated()}>
@@ -70,6 +71,10 @@ const AppRoutes = () => {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/admin/patients" element={<PatientsPage />} />
+<Route path="/admin/appointments" element={<AppointmentsPage />} />
+<Route path="/admin/settings" element={<SettingsPage />} />
+
       </Routes>
     </BrowserRouter>
   );

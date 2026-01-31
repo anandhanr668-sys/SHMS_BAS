@@ -1552,6 +1552,7 @@ hms-frontend/
 │   │   │   ├── StaffManagement.jsx
 │   │   │   ├── AuditLogs.jsx
 │   │   │   └── Analytics.jsx
+|   |   |   |_ PatientsPage.jsx
 │   │
 │   │   ├── frontdesk/
 │   │   │   ├── FrontDeskDashboard.jsx
