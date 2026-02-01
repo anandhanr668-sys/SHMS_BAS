@@ -2,7 +2,7 @@
 
 import http from "http";
 import app from "./app.js";
-import { initSocket } from "./socket.index.js";
+import { initSocket } from "./socket.js";
 import { env } from "./config/env.js";
 import logger from "./config/logger.js";
 

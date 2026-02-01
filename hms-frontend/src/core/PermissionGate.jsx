@@ -1,23 +1,26 @@
-import React from "react";
+import useAuthStore from "../store/authStore";
 
 /**
  * PermissionGate
  * Usage:
- * <PermissionGate allowed={["ADMIN", "DOCTOR"]}>
+ * <PermissionGate allow={["ADMIN", "DOCTOR"]}>
  *   <Component />
  * </PermissionGate>
  */
+export default function PermissionGate({ allow = [], children }) {
+  const { role, isAuthenticated } = useAuthStore();
 
-const PermissionGate = ({ allowed = [], userRole, children }) => {
-  if (!allowed.includes(userRole)) {
+  if (!isAuthenticated) {
+    return null; // or <Navigate to="/login" />
+  }
+
+  if (!allow.includes(role)) {
     return (
       <div style={{ padding: 20, color: "red" }}>
-        You do not have permission to view this page.
+        You do not have permission to view this section.
       </div>
     );
   }
 
   return children;
-};
-
-export default PermissionGate;
+}

@@ -1,13 +1,15 @@
-import React from "react";
+import { useEffect } from "react";
 import AppRoutes from "./routes/AppRoutes";
-import "./styles/global.css";
-import "./styles/login.css";
-import "./styles/dashboard.css";
-import "./styles/formBuilder.css";
-import "./styles/rulesBuilder.css";
-import "./styles/reportDesigner.css";
+import useAuthStore from "./store/authStore";
 
 const App = () => {
+  const hydrate = useAuthStore((state) => state.hydrate);
+
+  // 🔁 Restore login state on refresh
+  useEffect(() => {
+    hydrate();
+  }, [hydrate]);
+
   return <AppRoutes />;
 };
 

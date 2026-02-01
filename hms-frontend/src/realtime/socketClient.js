@@ -1,13 +1,14 @@
 import { io } from "socket.io-client";
 
-// In real deployment, use env variable
+// 🔁 Use env variable later (Vite style)
 const SOCKET_URL = "http://localhost:4000";
 
 const socket = io(SOCKET_URL, {
   transports: ["websocket"],
-  autoConnect: true
+  autoConnect: false // 🔒 VERY IMPORTANT
 });
 
+// Debug logs (safe to keep)
 socket.on("connect", () => {
   console.log("✅ Realtime connected:", socket.id);
 });

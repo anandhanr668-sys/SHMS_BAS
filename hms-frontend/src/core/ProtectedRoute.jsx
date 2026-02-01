@@ -1,17 +1,29 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import useAuthStore from "../store/authStore";
 
 /**
  * ProtectedRoute
- * Ensures only authenticated users can access routes
+ * - Blocks unauthenticated users
+ * - Blocks unauthorized roles
+ *
+ * Usage:
+ * <Route element={<ProtectedRoute allow={["ADMIN"]} />}>
+ *   <Route path="/admin/settings" element={<SettingsPage />} />
+ * </Route>
  */
+export default function ProtectedRoute({ allow = [] }) {
+  const { isAuthenticated, role } = useAuthStore();
 
-const ProtectedRoute = ({ isAuthenticated, children }) => {
+  // Not logged in
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
-};
+  // Logged in but role not allowed
+  if (allow.length && !allow.includes(role)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
-export default ProtectedRoute;
+  // Authorized → render child routes
+  return <Outlet />;
+}

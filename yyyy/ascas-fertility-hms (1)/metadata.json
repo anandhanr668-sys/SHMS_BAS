@@ -1,7 +1,0 @@
-{
-  "name": "ASCAS Fertility HMS",
-  "description": "A comprehensive, customizable Hospital Management System tailored for fertility and women's health clinics, featuring dynamic form building for Antenatal records, IUI plans, ART summaries, and Semen Analysis.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}
