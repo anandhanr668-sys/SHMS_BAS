@@ -1,0 +1,10 @@
+import { ROLES, PERMISSIONS } from "./constants";
+
+export const rolePermissionMap = {
+  [ROLES.ADMIN]: Object.values(PERMISSIONS),
+  [ROLES.FRONTDESK]: [PERMISSIONS.MANAGE_PATIENTS],
+  [ROLES.NURSE]: [PERMISSIONS.MANAGE_PATIENTS],
+  [ROLES.DOCTOR]: [PERMISSIONS.VIEW_REPORTS],
+  [ROLES.PATIENT]: [],
+};
+

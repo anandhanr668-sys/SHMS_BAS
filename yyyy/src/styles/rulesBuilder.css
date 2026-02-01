@@ -1,0 +1,21 @@
+.rules-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px;
+}
+
+.rule-box {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.rule-preview {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 14px;
+  font-family: monospace;
+}
+

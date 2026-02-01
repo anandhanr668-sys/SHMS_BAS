@@ -1,0 +1,29 @@
+.form-builder {
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  height: 100vh;
+}
+
+.form-panel {
+  padding: 16px;
+  background: #020617;
+  color: white;
+}
+
+.form-canvas {
+  padding: 24px;
+  background: white;
+}
+
+.form-properties {
+  padding: 16px;
+  background: #f1f5f9;
+}
+
+.form-field {
+  padding: 12px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
