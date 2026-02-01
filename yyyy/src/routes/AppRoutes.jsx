@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 /* Core */
@@ -34,6 +34,7 @@ import BedStatus from "../dashboards/nurse/BedStatus";
 /* Doctor */
 import DoctorDashboard from "../dashboards/doctor/DoctorDashboard";
 import PatientList from "../dashboards/doctor/PatientList";
+import PatientProfile from "../dashboards/doctor/PatientProfile";
 import Consultation from "../dashboards/doctor/Consultation";
 import Prescriptions from "../dashboards/doctor/Prescriptions";
 import Discharge from "../dashboards/doctor/Discharge";
@@ -46,6 +47,12 @@ import PatientPrescriptions from "../dashboards/patient/Prescriptions";
 import Appointments from "../dashboards/patient/Appointments";
 
 const AppRoutes = () => {
+  // #region agent log
+  useEffect(() => {
+    fetch('http://127.0.0.1:7242/ingest/1abce27b-561a-487e-ae38-0ae97682f617',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'AppRoutes.jsx:59',message:'AppRoutes rendering',data:{routeCount:15},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  }, []);
+  // #endregion
+
   return (
     <Routes>
       {/* Entry / Auth */}
@@ -85,9 +92,10 @@ const AppRoutes = () => {
         {/* Doctor */}
         <Route path="/doctor" element={<DoctorDashboard />} />
         <Route path="/doctor/patients" element={<PatientList />} />
-        <Route path="/doctor/consultation" element={<Consultation />} />
-        <Route path="/doctor/prescriptions" element={<Prescriptions />} />
-        <Route path="/doctor/discharge" element={<Discharge />} />
+        <Route path="/doctor/patient/:id" element={<PatientProfile />} />
+        <Route path="/doctor/consultation/:id" element={<Consultation />} />
+        <Route path="/doctor/prescriptions/:id" element={<Prescriptions />} />
+        <Route path="/doctor/discharge/:id" element={<Discharge />} />
 
         {/* Patient */}
         <Route path="/patient" element={<PatientPortal />} />

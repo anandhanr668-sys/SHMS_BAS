@@ -10,6 +10,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: false
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   }
 });
 

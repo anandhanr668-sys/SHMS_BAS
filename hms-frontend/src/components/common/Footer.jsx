@@ -1,11 +1,7 @@
-import React from "react";
-
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="app-footer">
       © {new Date().getFullYear()} LCNC Hospital Management System
     </footer>
   );
-};
-
-export default Footer;
+}

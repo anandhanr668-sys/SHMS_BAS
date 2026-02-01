@@ -12,6 +12,9 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     console.error("App Error:", error, info);
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/1abce27b-561a-487e-ae38-0ae97682f617',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ErrorBoundary.jsx:14',message:'Error caught by boundary',data:{error:error.message,stack:error.stack?.substring(0,300),componentStack:info.componentStack?.substring(0,200)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
   }
 
   render() {
@@ -29,4 +32,3 @@ class ErrorBoundary extends React.Component {
 }
 
 export default ErrorBoundary;
-

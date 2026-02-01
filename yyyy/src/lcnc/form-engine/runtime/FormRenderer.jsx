@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import DynamicField from "./DynamicField";
+import SectionRenderer from "./SectionRenderer";
 import { runValidation } from "./ValidationRunner";
+import { FormSchema } from "../../../types/forms";
+import { motion } from "framer-motion";
 
 const FormRenderer = ({ schema }) => {
   const [formData, setFormData] = useState({});
@@ -21,24 +24,62 @@ const FormRenderer = ({ schema }) => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <h2>{schema.title}</h2>
+  const hasSections = schema.sections && schema.sections.length > 0;
 
-      {schema.fields.map((field) => (
-        <DynamicField
-          key={field.name}
-          field={field}
-          value={formData[field.name] || ""}
-          error={errors[field.name]}
+  return (
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      onSubmit={handleSubmit}
+      className="max-w-5xl mx-auto pb-20"
+    >
+      <div className="mb-8">
+        <h2 className="text-4xl font-black text-slate-900 tracking-tighter uppercase italic mb-2">
+          {schema.title}
+        </h2>
+      </div>
+
+      {hasSections ? (
+        <SectionRenderer
+          schema={schema}
+          formData={formData}
+          errors={errors}
           onChange={handleChange}
         />
-      ))}
+      ) : (
+        <div className="space-y-6">
+          {schema.fields?.map((field) => (
+            <DynamicField
+              key={field.name}
+              field={field}
+              value={formData[field.name] || ""}
+              error={errors[field.name]}
+              onChange={handleChange}
+            />
+          ))}
+        </div>
+      )}
 
-      <button type="submit" style={styles.button}>
-        Submit
-      </button>
-    </form>
+      <div className="mt-10 flex gap-4">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          type="submit"
+          className="px-10 py-4 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20"
+        >
+          Save Form
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          type="button"
+          onClick={() => window.print()}
+          className="px-10 py-4 bg-white border border-slate-200 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all"
+        >
+          Print
+        </motion.button>
+      </div>
+    </motion.form>
   );
 };
 

@@ -4,6 +4,12 @@ import DragCanvas from "./DragCanvas";
 import FieldProperties from "./FieldProperties";
 
 const FormBuilder = () => {
+  // #region agent log
+  React.useEffect(() => {
+    fetch('http://127.0.0.1:7242/ingest/1abce27b-561a-487e-ae38-0ae97682f617',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'FormBuilder.jsx:7',message:'FormBuilder rendering',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+  }, []);
+  // #endregion
+
   const [fields, setFields] = useState([]);
   const [selectedField, setSelectedField] = useState(null);
 
@@ -41,7 +47,7 @@ const styles = {
   wrapper: {
     display: "grid",
     gridTemplateColumns: "220px 1fr 260px",
-    height: "100vh",
+    minHeight: "calc(100vh - 200px)",
     background: "#f8fafc",
   },
 };

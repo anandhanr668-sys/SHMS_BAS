@@ -3,6 +3,12 @@ import ReportCanvas from "./ReportCanvas";
 import ReportRenderer from "./ReportRenderer";
 
 const ReportDesigner = () => {
+  // #region agent log
+  React.useEffect(() => {
+    fetch('http://127.0.0.1:7242/ingest/1abce27b-561a-487e-ae38-0ae97682f617',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportDesigner.jsx:6',message:'ReportDesigner rendering',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+  }, []);
+  // #endregion
+
   const [layout, setLayout] = useState([
     "Patient Name: {{patientName}}",
     "Age: {{age}}",
