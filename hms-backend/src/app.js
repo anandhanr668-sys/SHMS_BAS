@@ -20,6 +20,14 @@ app.use(express.urlencoded({ extended: true }));
 // HTTP request logger
 app.use(morgan('dev'));
 
+// Global middlewares
+const tenantMiddleware = require('./middlewares/tenant.middleware');
+const requestLogger = require('./middlewares/requestLogger.middleware');
+const errorMiddleware = require('./middlewares/error.middleware');
+
+app.use(requestLogger);
+app.use(tenantMiddleware);
+
 /* -------------------- HEALTH CHECK -------------------- */
 
 app.get('/health', (req, res) => {
@@ -45,13 +53,6 @@ app.use((req, res) => {
 
 /* -------------------- GLOBAL ERROR HANDLER -------------------- */
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-
-  res.status(err.status || 500).json({
-    success: false,
-    message: err.message || 'Internal Server Error',
-  });
-});
+app.use(errorMiddleware);
 
 module.exports = app;
