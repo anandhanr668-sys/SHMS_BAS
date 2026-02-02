@@ -1,50 +1,56 @@
 // src/modules/auth/auth.service.js
 
-import bcrypt from "bcryptjs";
-import pool from "../../config/db.js";
-import { generateToken } from "../../utils/jwt.js";
+const jwt = require('jsonwebtoken');
+const env = require('../../config/env');
 
-export const register = async ({ name, email, password, role }) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const result = await pool.query(
-    `INSERT INTO users (name, email, password, role)
-     VALUES ($1, $2, $3, $4)
-     RETURNING id, name, email, role`,
-    [name, email, hashedPassword, role || "STAFF"]
-  );
-
-  return result.rows[0];
+/**
+ * MOCK user fetch (replace with DB later)
+ */
+const getUserByUsername = async (username) => {
+  // Later → DB query based on tenant
+  if (username === 'admin') {
+    return {
+      id: 1,
+      username: 'admin',
+      password: 'admin123', // hashed in real app
+      role: {
+        name: 'ADMIN',
+        permissions: ['patient.read', 'patient.write'],
+      },
+    };
+  }
+  return null;
 };
 
-export const login = async ({ email, password }) => {
-  const result = await pool.query(
-    `SELECT * FROM users WHERE email = $1`,
-    [email]
-  );
+/**
+ * Login service
+ */
+const login = async ({ username, password }) => {
+  const user = await getUserByUsername(username);
 
-  const user = result.rows[0];
-  if (!user) {
-    throw new Error("Invalid email or password");
+  if (!user || user.password !== password) {
+    throw new Error('Invalid credentials');
   }
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    throw new Error("Invalid email or password");
-  }
-
-  const token = generateToken({
-    id: user.id,
+  const payload = {
+    userId: user.id,
     role: user.role,
+  };
+
+  const token = jwt.sign(payload, env.jwt.secret, {
+    expiresIn: env.jwt.expiresIn,
   });
 
   return {
     token,
     user: {
       id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      username: user.username,
+      role: user.role.name,
     },
   };
+};
+
+module.exports = {
+  login,
 };

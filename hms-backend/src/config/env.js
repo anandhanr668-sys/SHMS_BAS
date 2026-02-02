@@ -1,24 +1,25 @@
 // src/config/env.js
 
-import dotenv from "dotenv";
+require('dotenv').config();
 
-dotenv.config();
+const env = {
+  nodeEnv: process.env.NODE_ENV || 'development',
+  port: process.env.PORT || 5000,
 
-export const env = {
-  NODE_ENV: process.env.NODE_ENV || "development",
-  PORT: process.env.PORT || 5000,
+  database: {
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
+    name: process.env.DB_NAME || 'hms_db',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+  },
 
-  // Database
-  DB_HOST: process.env.DB_HOST || "localhost",
-  DB_PORT: process.env.DB_PORT || 5432,
-  DB_NAME: process.env.DB_NAME || "hms_db",
-  DB_USER: process.env.DB_USER || "postgres",
-  DB_PASSWORD: process.env.DB_PASSWORD || "postgres",
+  jwt: {
+    secret: process.env.JWT_SECRET || 'hms_secret_key',
+    expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+  },
 
-  // JWT
-  JWT_SECRET: process.env.JWT_SECRET || "supersecret",
-  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "1d",
-
-  // Logging
-  LOG_LEVEL: process.env.LOG_LEVEL || "info",
+  logLevel: process.env.LOG_LEVEL || 'info',
 };
+
+module.exports = env;

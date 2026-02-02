@@ -1,38 +1,43 @@
 // src/server.js
 
-import http from "http";
-import app from "./app.js";
-import { initSocket } from "./socket.js";
-import { env } from "./config/env.js";
-import logger from "./config/logger.js";
+const dotenv = require('dotenv');
+const app = require('./app');
+const { initializeSockets } = require('./socket.index');
 
-/* ======================
-   Create HTTP Server
-====================== */
-const server = http.createServer(app);
+// Load environment variables
+dotenv.config();
 
-/* ======================
-   Initialize WebSockets
-====================== */
-initSocket(server);
+/* -------------------- CONFIG -------------------- */
 
-/* ======================
-   Start Server
-====================== */
-const PORT = env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-server.listen(PORT, () => {
-  logger.info(`🚀 HMS Backend running on port ${PORT}`);
-  console.log(`🚀 Server started at http://localhost:${PORT}`);
+/* -------------------- START SERVER -------------------- */
+
+const server = app.listen(PORT, () => {
+  console.log(`
+🚀 HMS Backend Server Started
+📍 Environment : ${NODE_ENV}
+🌐 Port        : ${PORT}
+⏰ Time        : ${new Date().toLocaleString()}
+`);
 });
 
-/* ======================
-   Graceful Shutdown
-====================== */
-process.on("SIGTERM", () => {
-  logger.warn("SIGTERM received. Shutting down gracefully...");
+/* -------------------- INITIALIZE SOCKETS -------------------- */
+initializeSockets(server);
+
+/* -------------------- GRACEFUL SHUTDOWN -------------------- */
+
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
   server.close(() => {
-    logger.info("Server closed");
-    process.exit(0);
+    process.exit(1);
+  });
+});
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Shutting down gracefully...');
+  server.close(() => {
+    console.log('Process terminated');
   });
 });

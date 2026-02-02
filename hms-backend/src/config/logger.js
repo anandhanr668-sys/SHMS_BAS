@@ -1,10 +1,10 @@
 // src/config/logger.js
 
-import winston from "winston";
-import { env } from "./env.js";
+const winston = require('winston');
+const env = require('./env');
 
 const logger = winston.createLogger({
-  level: env.LOG_LEVEL,
+  level: env.logLevel,
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.errors({ stack: true }),
@@ -20,4 +20,14 @@ const logger = winston.createLogger({
   ],
 });
 
-export default logger;
+// Production file logging
+if (env.nodeEnv === 'production') {
+  logger.add(
+    new winston.transports.File({ filename: 'logs/error.log', level: 'error' })
+  );
+  logger.add(
+    new winston.transports.File({ filename: 'logs/combined.log' })
+  );
+}
+
+module.exports = logger;

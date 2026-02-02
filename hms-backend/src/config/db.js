@@ -1,32 +1,28 @@
 // src/config/db.js
 
-import pkg from "pg";
-import { env } from "./env.js";
-import logger from "./logger.js";
-
-const { Pool } = pkg;
+const { Pool } = require('pg');
+const env = require('./env');
+const logger = require('./logger');
 
 const pool = new Pool({
-  host: env.DB_HOST,
-  port: env.DB_PORT,
-  user: env.DB_USER,
-  password: env.DB_PASSWORD,
-  database: env.DB_NAME,
-  ssl: env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
-  max: 10,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 5000,
+  host: env.database.host,
+  port: env.database.port,
+  database: env.database.name,
+  user: env.database.user,
+  password: env.database.password,
+  ssl: env.nodeEnv === 'production' ? { rejectUnauthorized: false } : false,
 });
 
-export const connectDB = async () => {
-  try {
-    const client = await pool.connect();
-    client.release();
-    logger.info("✅ PostgreSQL connected successfully");
-  } catch (error) {
-    logger.error("❌ Database connection failed", error);
-    process.exit(1);
-  }
-};
+pool.on('connect', () => {
+  logger.info('📦 Database connected successfully');
+});
 
-export default pool;
+pool.on('error', (err) => {
+  logger.error('❌ Database connection error', err);
+  process.exit(1);
+});
+
+module.exports = {
+  query: (text, params) => pool.query(text, params),
+  pool,
+};

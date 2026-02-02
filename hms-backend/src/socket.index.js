@@ -1,31 +1,24 @@
-// src/socket.js
+// src/socket.index.js
 
-import { Server } from "socket.io";
-import logger from "./config/logger.js";
+const { initSocket } = require('./realtime/socket');
+const { emitBedUpdate } = require('./realtime/bed.events');
+const { emitNotification } = require('./realtime/notification.events');
 
-let io;
+/**
+ * Initialize sockets with HTTP server
+ */
+const initializeSockets = (server) => {
+  const io = initSocket(server);
 
-export const initSocket = (server) => {
-  io = new Server(server, {
-    cors: {
-      origin: "*",
-    },
-  });
+  console.log('⚡ Real-time socket system initialized');
 
-  io.on("connection", (socket) => {
-    logger.info(`🔌 Socket connected: ${socket.id}`);
-
-    socket.on("disconnect", () => {
-      logger.info(`❌ Socket disconnected: ${socket.id}`);
-    });
-  });
-
-  return io;
+  return {
+    io,
+    emitBedUpdate,
+    emitNotification,
+  };
 };
 
-/* Emit helpers (used anywhere) */
-export const emitEvent = (event, payload) => {
-  if (io) {
-    io.emit(event, payload);
-  }
+module.exports = {
+  initializeSockets,
 };

@@ -1,30 +1,21 @@
 // src/modules/auth/auth.controller.js
 
-import * as authService from "./auth.service.js";
-import { successResponse } from "../../utils/response.js";
+const authService = require('./auth.service');
 
-export const register = async (req, res, next) => {
+const login = async (req, res, next) => {
   try {
-    const user = await authService.register(req.body);
-    successResponse(res, user, "User registered successfully");
-  } catch (err) {
-    next(err);
+    const result = await authService.login(req.body);
+
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
-export const login = async (req, res, next) => {
-  try {
-    const data = await authService.login(req.body);
-    successResponse(res, data, "Login successful");
-  } catch (err) {
-    next(err);
-  }
-};
-
-export const me = async (req, res, next) => {
-  try {
-    successResponse(res, req.user, "User profile fetched");
-  } catch (err) {
-    next(err);
-  }
+module.exports = {
+  login,
 };
